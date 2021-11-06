@@ -251,17 +251,14 @@ class Client:
 
 	def sendRtspRequest(self, requestCode):
 		"""Send RTSP request to the server."""
-		#-------------
-		# TO COMPLETE
-		#-------------
-
 		# Setup request
 		if requestCode == self.SETUP and self.state == self.INIT:
 			threading.Thread(target=self.recvRtspReply).start()
 			# Update RTSP sequence number.
 			self.rtspSeq = 1
+
 			# Write the RTSP request to be sent.
-			request = "SETUP " + str(self.fileName) + " RTSP/1.0\nCSeq: " + str(self.rtspSeq) + "\nTransport: RTP/UDP; Client's port= " + str(self.rtpPort)
+			request = "SETUP " + str(self.fileName) + " RTSP/1.0\nCSeq: " + str(self.rtspSeq) + "\nTransport: RTP/UDP; client_port= " + str(self.rtpPort)
 			self.rtspSocket.send(request.encode("utf-8"))
 			# Keep track of the sent request.
 			self.requestSent = self.SETUP
@@ -270,6 +267,7 @@ class Client:
 		elif requestCode == self.PLAY and self.state == self.READY:
 			# Update RTSP sequence number.
 			self.rtspSeq += 1
+
 			# Write the RTSP request to be sent.
 			request = "PLAY " + str(self.fileName) + " RTSP/1.0\nCSeq: " + str(self.rtspSeq) +"\nSession: " + str(self.sessionId)
 			self.rtspSocket.send(request.encode("utf-8"))
@@ -279,6 +277,7 @@ class Client:
 		elif requestCode == self.PAUSE and self.state == self.PLAYING:
 			# Update RTSP sequence number.
 			self.rtspSeq += 1
+
 			# Write the RTSP request to be sent.
 			request = "PAUSE " + str(self.fileName) + " RTSP/1.0\nCSeq: " + str(self.rtspSeq) + "\nSession: " + str(self.sessionId)
 			self.rtspSocket.send(request.encode("utf-8"))
@@ -297,6 +296,7 @@ class Client:
 			return
 
 		# Send the RTSP request using rtspSocket.
+
 		print('\nData sent:\n' + request)
 
 	def recvRtspReply(self):
@@ -315,7 +315,7 @@ class Client:
 
 	def parseRtspReply(self, data):
 		"""Parse the RTSP reply from the server."""
-		print("*"*50 + "\nData received:\n" + data)
+		print("*"*60 + "\nData received:\n" + data)
 		lines = data.split('\n')
 		seqNum = int(lines[1].split(' ')[1])
 
@@ -330,12 +330,8 @@ class Client:
 			if self.sessionId == session:
 				if int(lines[0].split(' ')[1]) == 200:
 					if self.requestSent == self.SETUP:
-						#-------------
-						# TO COMPLETE
-						#-------------
 						# Update RTSP state.
 						self.state = self.READY
-
 						# Open RTP port.
 						self.openRtpPort()
 					elif self.requestSent == self.PLAY:
@@ -351,9 +347,6 @@ class Client:
 
 	def openRtpPort(self):
 		"""Open RTP socket binded to a specified port."""
-		#-------------
-		# TO COMPLETE
-		#-------------
 		# Create a new datagram socket to receive RTP packets from the server
 		self.rtpSocket.settimeout(0.5)
 		# Set the timeout value of the socket to 0.5sec
