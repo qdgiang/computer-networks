@@ -15,6 +15,7 @@ if __name__ == "__main__":
 	
 	# Create a new client
 	app = Client(root, serverAddr, serverPort, rtpPort, fileName)
-	app.master.title("RTPClient")	
+	app.master.title("RTPClient for Video Streaming")	
+	root.configure(background='#2E3440')
 	root.mainloop()
 	
