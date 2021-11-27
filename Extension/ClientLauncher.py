@@ -1,3 +1,4 @@
+__author__ = 'Tibbers'
 import sys
 from tkinter import Tk
 from Client import Client
@@ -7,15 +8,16 @@ if __name__ == "__main__":
 		serverAddr = sys.argv[1]
 		serverPort = sys.argv[2]
 		rtpPort = sys.argv[3]
-		fileName = sys.argv[4]	
+		fileName = sys.argv[4]
 	except:
-		print("[Usage: ClientLauncher.py Server_name Server_port RTP_port Video_file]\n")	
-	
+		print ("[Usage: ClientLauncher.py Server_name Server_port RTP_port Video_file]\n")
+
 	root = Tk()
-	
+
 	# Create a new client
-	app = Client(root, serverAddr, serverPort, rtpPort, fileName)
-	app.master.title("RTPClient for Video Streaming")	
-	root.configure(background='#2E3440')
+	#app = Client(root, serverAddr, serverPort, rtpPort, fileName)
+	app = Client(root,serverAddr,serverPort,rtpPort,fileName)
+	root.configure(background="#2E3440")
+	#app.master.title("RTPClient")
+	app.master.title("RTPClient")
 	root.mainloop()
-	
