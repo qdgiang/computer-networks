@@ -14,3 +14,5 @@ And the client will show up
 ![image](videoclient.PNG)
 
 Click Setup, then click Play, and the video will start playing
+
+![image](playvideo.PNG)
