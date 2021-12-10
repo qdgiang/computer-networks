@@ -8,7 +8,7 @@ First run the server:
 
 The run the video player:
 
-`python ClientLauncher.py 192.168.100.174 4200 5000 movie.Mjpeg`
+`python ClientLauncher.py localhost 4200 5000 movie.Mjpeg`
 
 And the client will show up
 ![image](videoclient.PNG)
